@@ -9,10 +9,14 @@ namespace ElgatoKeyLight
 
         public override void Load()
         {
-            this.Info.Icon16x16   = EmbeddedResources.ReadImage(AssemblyHelper.GetPluginIconPath("PluginIcon16x16.png"));
-            this.Info.Icon32x32   = EmbeddedResources.ReadImage(AssemblyHelper.GetPluginIconPath("PluginIcon32x32.png"));
-            this.Info.Icon48x48   = EmbeddedResources.ReadImage(AssemblyHelper.GetPluginIconPath("PluginIcon48x48.png"));
-            this.Info.Icon256x256 = EmbeddedResources.ReadImage(AssemblyHelper.GetPluginIconPath("PluginIcon256x256.png"));
+            try
+            {
+                this.Info.Icon16x16   = EmbeddedResources.ReadImage(AssemblyHelper.GetPluginIconPath("PluginIcon16x16.png"));
+                this.Info.Icon32x32   = EmbeddedResources.ReadImage(AssemblyHelper.GetPluginIconPath("PluginIcon32x32.png"));
+                this.Info.Icon48x48   = EmbeddedResources.ReadImage(AssemblyHelper.GetPluginIconPath("PluginIcon48x48.png"));
+                this.Info.Icon256x256 = EmbeddedResources.ReadImage(AssemblyHelper.GetPluginIconPath("PluginIcon256x256.png"));
+            }
+            catch { /* icons optional — plugin loads without them */ }
 
             KeyLightService.Start();
         }
