@@ -19,14 +19,16 @@ namespace ElgatoKeyLight
         {
         }
 
-        protected override void OnLoad()
+        protected override bool OnLoad()
         {
             KeyLightService.StateChanged += OnStateChanged;
+            return true;
         }
 
-        protected override void OnUnload()
+        protected override bool OnUnload()
         {
             KeyLightService.StateChanged -= OnStateChanged;
+            return true;
         }
 
         protected override void RunCommand(string actionParameter)
