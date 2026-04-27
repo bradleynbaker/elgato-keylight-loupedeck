@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>ElgatoKeyLight</AssemblyName>
+    <RootNamespace>ElgatoKeyLight</RootNamespace>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <Platforms>x64</Platforms>
+    <!-- Copy to Loupedeck plugin folder on build for easy dev iteration -->
+    <PluginOutputDir>$(LOCALAPPDATA)\Loupedeck\Plugins\ElgatoKeyLight</PluginOutputDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <OutputPath>bin\Release\net8.0\win\</OutputPath>
+  </PropertyGroup>
+
+  <!--
+    SDK DLL is provided by the Logi Plugin Service host at runtime.
+    Install Logi Options+ or the Loupedeck app to get PluginApi.dll.
+    Default path: C:\Program Files\Logi\LogiPluginService\PluginApi.dll
+    Override via env var: LOGI_PLUGIN_SDK_PATH
+  -->
+  <PropertyGroup>
+    <LogiSdkPath Condition="'$(LOGI_PLUGIN_SDK_PATH)'!=''">$(LOGI_PLUGIN_SDK_PATH)</LogiSdkPath>
+    <LogiSdkPath Condition="'$(LogiSdkPath)'==''">C:\Program Files\Logi\LogiPluginService</LogiSdkPath>
+    <!-- Fallback: legacy Loupedeck install path -->
+    <LogiSdkPath Condition="!Exists('$(LogiSdkPath)\PluginApi.dll')">C:\Program Files\Loupedeck\Loupedeck2</LogiSdkPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="PluginApi">
+      <HintPath>$(LogiSdkPath)\PluginApi.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Embed icons as resources -->
+  <ItemGroup>
+    <EmbeddedResource Include="images\*.png" />
+  </ItemGroup>
+
+  <!-- On Release build, auto-package as .lplug4 -->
+  <Target Name="PackageLplug4" AfterTargets="Publish" Condition="'$(Configuration)'=='Release'">
+    <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(ProjectDir)build.ps1&quot;" />
+  </Target>
+
+</Project>

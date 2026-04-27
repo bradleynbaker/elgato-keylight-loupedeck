@@ -1,0 +1,17 @@
+type: Plugin4
+name: ElgatoKeyLight
+displayName: Elgato Key Light
+version: 1.0.0
+author: Brad Baker
+copyright: MIT
+description: >
+  Direct IP control of a single Elgato Key Light.
+  One knob handles brightness (rotate) and power toggle (press).
+  One button shows live brightness % and toggles on tap.
+  No Bonjour, no cloud, no external dependencies.
+supportedDevices:
+  - LoupedeckCtFamily
+pluginFileName: ElgatoKeyLight.dll
+pluginFolderWin: win
+minimumLoupedeckVersion: "6.0"
+homePageUrl: https://github.com/bradbaker/elgato-keylight-loupedeck

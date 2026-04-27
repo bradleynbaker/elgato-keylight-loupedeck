@@ -1,0 +1,6 @@
+bin/
+obj/
+staging/
+*.lplug4
+.vs/
+*.user
