@@ -40,9 +40,5 @@
     <EmbeddedResource Include="images\*.png" />
   </ItemGroup>
 
-  <!-- On Release build, auto-package as .lplug4 -->
-  <Target Name="PackageLplug4" AfterTargets="Publish" Condition="'$(Configuration)'=='Release'">
-    <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(ProjectDir)build.ps1&quot;" />
-  </Target>
 
 </Project>
